@@ -12,7 +12,7 @@ from flask import send_file
 app = Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
-@app.route('/tagger')
+@app.route('/')
 def tagger():
     if (app.config["HEAD"] == len(app.config["FILES"])):
         return redirect(url_for('bye'))
