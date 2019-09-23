@@ -16,7 +16,7 @@ directory = "./image"
 if directory[len(directory) - 1] != "/":
      directory += "/"
 app.config["IMAGES"] = directory
-app.config["LABELS"] = list
+app.config["LABELS"] = []
 files = None
 for (dirpath, dirnames, filenames) in walk(app.config["IMAGES"]):
     files = filenames
