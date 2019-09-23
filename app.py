@@ -15,6 +15,21 @@ app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 @app.route('/')
 def tagger():
     app.config["HEAD"] = 0
+    directory = "./image"
+    if directory[len(directory) - 1] != "/":
+         directory += "/"
+    app.config["IMAGES"] = directory
+    app.config["LABELS"] = []
+    files = None
+    for (dirpath, dirnames, filenames) in walk(app.config["IMAGES"]):
+        files = filenames
+        break
+    if files == None:
+        print("No files")
+        exit()
+    app.config["FILES"] = files
+    with open("out.csv",'w') as f:
+        f.write("image,id,name,xMin,xMax,yMin,yMax\n")
     if (app.config["HEAD"] == len(app.config["FILES"])):
         return redirect(url_for('bye'))
     directory = app.config['IMAGES']
