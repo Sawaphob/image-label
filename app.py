@@ -12,8 +12,7 @@ from flask import send_file
 app = Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
-@app.route('/')
-def tagger():
+def initial():
     app.config["HEAD"] = 0
     directory = "./image"
     if directory[len(directory) - 1] != "/":
@@ -30,8 +29,14 @@ def tagger():
     app.config["FILES"] = files
     with open("out.csv",'w') as f:
         f.write("image,id,name,xMin,xMax,yMin,yMax\n")
-    if (app.config["HEAD"] == len(app.config["FILES"])):
-        return redirect(url_for('bye'))
+
+@app.route('/')
+def tagger():
+    try:
+        if (app.config["HEAD"] == len(app.config["FILES"])):
+            return redirect(url_for('bye'))
+    except NameError:
+        initial()
     directory = app.config['IMAGES']
     image = app.config["FILES"][app.config["HEAD"]]
     labels = app.config["LABELS"]
