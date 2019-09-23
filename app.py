@@ -26,6 +26,7 @@ def initial():
     if files == None:
         print("No files")
         exit()
+    app.config["OUT"] = "out.csv"
     app.config["FILES"] = files
     with open("out.csv",'w') as f:
         f.write("image,id,name,xMin,xMax,yMin,yMax\n")
