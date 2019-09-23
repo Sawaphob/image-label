@@ -18,7 +18,7 @@ def initial():
     if directory[len(directory) - 1] != "/":
          directory += "/"
     app.config["IMAGES"] = directory
-    app.config["LABELS"] = []
+    app.config["LABELS"] = list
     files = None
     for (dirpath, dirnames, filenames) in walk(app.config["IMAGES"]):
         files = filenames
@@ -36,14 +36,14 @@ def tagger():
     try:
         if (app.config["HEAD"] == len(app.config["FILES"])):
             return redirect(url_for('bye'))
-    except NameError:
+        directory = app.config['IMAGES']
+        image = app.config["FILES"][app.config["HEAD"]]
+        labels = app.config["LABELS"]
+        not_end = not(app.config["HEAD"] == len(app.config["FILES"]) - 1)
+        print(not_end)
+        return render_template('tagger.html', not_end=not_end, directory=directory, image=image, labels=labels, head=app.config["HEAD"] + 1, len=len(app.config["FILES"]))
+    except KeyError:
         initial()
-    directory = app.config['IMAGES']
-    image = app.config["FILES"][app.config["HEAD"]]
-    labels = app.config["LABELS"]
-    not_end = not(app.config["HEAD"] == len(app.config["FILES"]) - 1)
-    print(not_end)
-    return render_template('tagger.html', not_end=not_end, directory=directory, image=image, labels=labels, head=app.config["HEAD"] + 1, len=len(app.config["FILES"]))
 
 @app.route('/next')
 def next():
