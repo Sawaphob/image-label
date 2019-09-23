@@ -102,4 +102,4 @@ if __name__ == "__main__":
     print(files)
     with open("out.csv",'w') as f:
         f.write("image,id,name,xMin,xMax,yMin,yMax\n")
-    app.run(debug="True")
+    app.run()
