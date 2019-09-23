@@ -36,7 +36,7 @@ def tagger():
     try:
         if (app.config["HEAD"] == len(app.config["FILES"])):
             return redirect(url_for('bye'))
-    except NameError:
+    except KeyError:
         initial()
     directory = app.config['IMAGES']
     image = app.config["FILES"][app.config["HEAD"]]
