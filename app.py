@@ -14,6 +14,7 @@ app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
 @app.route('/')
 def tagger():
+    app.config["HEAD"] = 0
     if (app.config["HEAD"] == len(app.config["FILES"])):
         return redirect(url_for('bye'))
     directory = app.config['IMAGES']
@@ -94,7 +95,6 @@ if __name__ == "__main__":
         print("No files")
         exit()
     app.config["FILES"] = files
-    app.config["HEAD"] = 0
     if args.out == None:
         app.config["OUT"] = "out.csv"
     else:
